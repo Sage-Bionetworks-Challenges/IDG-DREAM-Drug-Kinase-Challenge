@@ -84,7 +84,7 @@ steps:
 
 
   annotate_validation_with_output:
-    run: https://raw.githubusercontent.com/Sage-Bionetworks/ChallengeWorkflowTemplates/v1.3/annotate_submission.cwl
+    run: annotate_submission.cwl
     in:
       - id: submissionid
         source: "#submissionId"
@@ -96,7 +96,7 @@ steps:
         valueFrom: "true"
       - id: synapse_config
         source: "#synapseConfig"
-    out: []
+    out: [finished]
 
   scoring:
     run: score.cwl
@@ -124,7 +124,7 @@ steps:
     out: []
 
   annotate_submission_with_output:
-    run: https://raw.githubusercontent.com/Sage-Bionetworks/ChallengeWorkflowTemplates/v1.3/annotate_submission.cwl
+    run: annotate_submission.cwl
     in:
       - id: submissionid
         source: "#submissionId"
@@ -136,6 +136,8 @@ steps:
         valueFrom: "true"
       - id: synapse_config
         source: "#synapseConfig"
-    out: []
+      - id: previous_annotation_finished
+        source: "#annotate_validation_with_output/finished"
+    out: [finished]
  
 
